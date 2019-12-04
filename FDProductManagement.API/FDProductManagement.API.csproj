@@ -22,6 +22,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\FDProductManagement.Domain.Core\FDProductManagement.Domain.Core.csproj" />
     <ProjectReference Include="..\FDProductManagement.Domain\FDProductManagement.Domain.csproj" />
     <ProjectReference Include="..\FDProductManagement.Infra.CrossCutting.IoC\FDProductManagement.Infra.CrossCutting.IoC.csproj" />
     <ProjectReference Include="..\FDProductManagement.Infra.Data\FDProductManagement.Infra.Data.csproj" />

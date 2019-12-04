@@ -5,6 +5,7 @@ using AutoMapper;
 using FDProductManagement.Infra.CrossCutting.IoC;
 using FDProductManagement.Infra.Data.Context;
 using FDProductManagement.Service.AutoMapper;
+using FDProductManagement.Domain.Core.Settings;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -30,8 +31,9 @@ namespace FDProductManagement.API
             services.AddDbContext<FDProductManagementContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
-            //AutoMapperConfiguration.RegisterMappings();
-            services.AddMvc();
+            services.AddControllers();
+            SettingsConfiguration.SqlServerConnection = Configuration.GetConnectionString("DefaultConnection");
+
             Mapper.Initialize(cfg => cfg.AddProfile<MappingProfile>());
             services.AddAutoMapper();
 
@@ -46,7 +48,16 @@ namespace FDProductManagement.API
                 app.UseDeveloperExceptionPage();
             }
 
-            app.UseMvc();
+            app.UseHttpsRedirection();
+
+            app.UseRouting();
+
+            app.UseAuthorization();
+
+            app.UseEndpoints(endpoints =>
+            {
+                endpoints.MapControllers();
+            });
         }
 
         private static void RegisterServices(IServiceCollection services)

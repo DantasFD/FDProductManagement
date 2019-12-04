@@ -1,4 +1,8 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using FDProductManagement.Domain.Core.Settings;
+using FDProductManagement.Domain.Entities;
+using FDProductManagement.Infra.Data.Mappings;
+using Flunt.Notifications;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
@@ -13,20 +17,21 @@ namespace FDProductManagement.Infra.Data.Context
             : base(options) { }
         public FDProductManagementContext() { }
 
+        public DbSet<Product> Products { get; set; }
+        public DbSet<Brand> Brands { get; set; }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Ignore<Notification>();
+            modelBuilder.ApplyConfiguration(new ProductMap());
+            modelBuilder.ApplyConfiguration(new BrandMap());
 
             base.OnModelCreating(modelBuilder);
         }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            var config = new ConfigurationBuilder()
-                .SetBasePath(Directory.GetCurrentDirectory())
-                .AddJsonFile("appsettings.json")
-                .Build();
-
-            optionsBuilder.UseSqlServer(config.GetConnectionString("DefaultConnection"));
+            optionsBuilder.UseSqlServer(SettingsConfiguration.SqlServerConnection);
 
             base.OnConfiguring(optionsBuilder);
         }
