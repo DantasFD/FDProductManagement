@@ -1,7 +1,7 @@
-#FDProductManagement
+# FDProductManagement
 API Rest para gerenciamento de produtos.
 
-#Configuração
+# Configuração
 Mudar connectionString nos arquivos appsettings.json e rodar script na pasta Scripts. Lembre-se de estar com o sdk atualizado.
 
 #Tecnologias Implementadas:
