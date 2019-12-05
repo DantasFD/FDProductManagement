@@ -23,10 +23,10 @@ namespace FDProductManagement.Service.ViewModels
         public decimal Price { get; set; }
 
         [JsonProperty(PropertyName = "fabricationDate")]
-        public DateTime FabricationDate { get; set; }
+        public string FabricationDate { get; set; }
 
         [JsonProperty(PropertyName = "warrantyExpireDate")]
-        public DateTime WarrantyExpireDate { get; set; }
+        public string WarrantyExpireDate { get; set; }
 
         [JsonProperty(PropertyName = "brand")]
         public BrandViewModel Brand { get; set; }

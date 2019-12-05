@@ -12,16 +12,16 @@ namespace FDProductManagement.Domain.Tests
         private readonly Brand _brand = new Brand("Teste");
 
         [TestMethod]
-        [TestCategory("Patrimony - new Patrimony")]
-        public void GivenAValidPatrimonyShouldCreateValidPatrimony()
+        [TestCategory("Product - new Product")]
+        public void GivenAValidProductShouldCreateValidProduct()
         {
-            var product = new Product("Patrominio 1", "Desc 1", _brand);
+            var product = new Product("Product 1", "Desc 1", _brand);
 
             Assert.IsTrue(product.Valid);
         }
 
         [TestMethod]
-        [TestCategory("Patrimony - new Patrimony")]
+        [TestCategory("Product - new Product")]
         public void GivenAnInvalidNameShouldReturnANotification()
         {
             var product = new Product("", "Desc 1", _brand);
@@ -30,7 +30,7 @@ namespace FDProductManagement.Domain.Tests
         }
 
         [TestMethod]
-        [TestCategory("Patrimony - new Patrimony")]
+        [TestCategory("Product - new Product")]
         public void GivenAnInvalidDescritionShouldReturnANotification()
         {
             var product = new Product("Teste", "D", _brand);
