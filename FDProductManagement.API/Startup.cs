@@ -28,11 +28,14 @@ namespace FDProductManagement.API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            SettingsConfiguration.SqlServerConnection = Configuration.GetConnectionString("DefaultConnection");
+
             services.AddDbContext<FDProductManagementContext>(options =>
-                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+                options.UseSqlServer(SettingsConfiguration.SqlServerConnection));
+
+            services.AddCors();
 
             services.AddControllers();
-            SettingsConfiguration.SqlServerConnection = Configuration.GetConnectionString("DefaultConnection");
 
             Mapper.Initialize(cfg => cfg.AddProfile<MappingProfile>());
             services.AddAutoMapper();
@@ -47,6 +50,13 @@ namespace FDProductManagement.API
             {
                 app.UseDeveloperExceptionPage();
             }
+
+            app.UseCors(
+                options => options.WithOrigins("http://localhost:3000")
+                .AllowAnyOrigin()
+                .AllowAnyHeader()
+                .AllowAnyMethod()
+                );
 
             app.UseHttpsRedirection();
 
